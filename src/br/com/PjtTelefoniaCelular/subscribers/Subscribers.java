@@ -1,7 +1,10 @@
 package br.com.PjtTelefoniaCelular.subscribers;
 
 public class Subscribers {
-    String Teste = "Teste";
+   private int cpf;
+   private String name;
+   private int celNumber;
+
 
 }
 
