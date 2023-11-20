@@ -1,6 +1,6 @@
 package br.com.PjtTelefoniaCelular.subscribers;
 
-import call.Call;
+import br.com.PjtTelefoniaCelular.call.Call;
 
 public class Subscribers {
    private long cpf;
