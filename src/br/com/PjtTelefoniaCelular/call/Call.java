@@ -7,9 +7,9 @@ public class Call {
     private int duration;
 
     // Construtor
-    public Call(GregorianCalendar date, int duracao) {
+    public Call(GregorianCalendar date, int duration) {
         this.date = date;
-        this.duration = duracao;
+        this.duration = duration;
     }
 
     // Método para obter a data
