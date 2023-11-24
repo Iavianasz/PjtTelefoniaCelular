@@ -1,5 +1,4 @@
 package br.com.PjtTelefoniaCelular.subscribers;
-
 import br.com.PjtTelefoniaCelular.call.Call;
 
 public class Subscribers {

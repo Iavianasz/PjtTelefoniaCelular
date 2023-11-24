@@ -1,22 +1,18 @@
 package br.com.PjtTelefoniaCelular.prepaid;
-import br.com.PjtTelefoniaCelular.call.Call
+import br.com.PjtTelefoniaCelular.call.Call;
+import br.com.PjtTelefoniaCelular.subscribers.Subscribers;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
-public class Prepaid {
-    private long cpf;
-    private String name;
-    private String number;
+public class Prepaid extends Subscribers {
     private Recharge[] recharge;
     private int numRecharge;
     private int credit;
 
     // Construtor
-    public Prepaid(long cpf, String name, String number) {
-        this.cpf = cpf;
-        this.name = name;
-        this.number = number;
+    public Prepaid(long cpf, String name, int celNumber) {
+        super(cpf, name, celNumber, celNumber);
         this.recharge = new Recharge[100]; // Tamanho arbitrário para o vetor de recargas
         this.numRecharge = 0;
         this.credit = 0;
@@ -60,7 +56,7 @@ public class Prepaid {
 
         System.out.println("CPF: " + cpf);
         System.out.println("Nome: " + name);
-        System.out.println("Número: " + number);
+        System.out.println("Número: " + celNumber);
 
         System.out.println("Chamadas e recargas do mês " + month + ":");
 
