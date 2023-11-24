@@ -18,7 +18,7 @@ public class Call {
     }
 
     // Método para obter a duração
-    public int getDuracao() {
+    public int getDuration() {
         return duration;
     }
 
