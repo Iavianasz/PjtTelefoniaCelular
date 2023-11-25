@@ -2,9 +2,9 @@ package br.com.PjtTelefoniaCelular.subscribers;
 import br.com.PjtTelefoniaCelular.call.Call;
 
 public class Subscribers {
-   private long cpf;
-   private String name;
-   private int celNumber;
+   protected long cpf;
+   protected String name;
+   protected int celNumber;
    private int numOfCalls;
 
    private Call[] calls;
