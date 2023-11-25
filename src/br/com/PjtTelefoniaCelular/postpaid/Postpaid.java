@@ -1,17 +1,18 @@
 package br.com.PjtTelefoniaCelular.postpaid;
 import br.com.PjtTelefoniaCelular.call.Call;
-
+import br.com.PjtTelefoniaCelular.subscribers.Subscribers;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
-public class Postpaid {
+public class Postpaid extends Subscribers{
     private float subscription;
     private Call[] calls;
     private int numCalls;
 
     // Construtor
-    public Postpaid(float subscription) {
+    public Postpaid(long cpf, String name, int celNumber,float subscription) {
+        super(cpf, name, celNumber, celNumber);
         this.subscription = subscription;
         this.calls = new Call[100]; // Tamanho arbitrário para o vetor de chamadas
         this.numCalls = 0;
