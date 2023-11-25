@@ -55,7 +55,7 @@ public class Prepaid extends Subscribers {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         System.out.println("CPF: " + cpf);
-        System.out.println("Nome: " + name);
+        System.out.println("Nome: " + n ame);
         System.out.println("Número: " + celNumber);
 
         System.out.println("Chamadas e recargas do mês " + month + ":");
