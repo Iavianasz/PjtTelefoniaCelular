@@ -8,14 +8,14 @@ import br.com.PjtTelefoniaCelular.subscribers.Subscribers;
 import br.com.PjtTelefoniaCelular.recharge.Recharge;
 
 public class Prepaid extends Subscribers {
-    private Recharge[] recharges; 
-    private int numRecharges; 
-    private float credit; 
+    private Recharge[] recharges;
+    private int numRecharges;
+    private float credit;
 
     // Construtor
     public Prepaid(long cpf, String name, int celNumber) {
         super(cpf, name, celNumber, celNumber);
-        this.recharges = new Recharge[100]; 
+        this.recharges = new Recharge[100];
         this.numRecharges = 0;
         this.credit = 0;
     }
