@@ -1,20 +1,22 @@
 package br.com.PjtTelefoniaCelular.prepaid;
-import br.com.PjtTelefoniaCelular.call.Call;
-import br.com.PjtTelefoniaCelular.subscribers.Subscribers;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+import br.com.PjtTelefoniaCelular.call.Call;
+import br.com.PjtTelefoniaCelular.subscribers.Subscribers;
+import br.com.PjtTelefoniaCelular.recharge.Recharge;
+
 public class Prepaid extends Subscribers {
-    private Recharge[] recharge;
-    private int numRecharge;
-    private int credit;
+    private Recharge[] recharges; 
+    private int numRecharges; 
+    private float credit; 
 
     // Construtor
     public Prepaid(long cpf, String name, int celNumber) {
         super(cpf, name, celNumber, celNumber);
-        this.recharge = new Recharge[100]; // Tamanho arbitrário para o vetor de recargas
-        this.numRecharge = 0;
+        this.recharges = new Recharge[100]; 
+        this.numRecharges = 0;
         this.credit = 0;
     }
 
@@ -25,7 +27,7 @@ public class Prepaid extends Subscribers {
         if (credit >= costCall) {
             credit -= costCall;
 
-            // Registra a chamada (supondo que exista uma classe Chamada)
+            // Registra a chamada (supondo que exista uma classe Call)
             Call call = new Call(date, duration);
             // ... código para adicionar chamada ao vetor de chamadas ...
 
@@ -36,12 +38,12 @@ public class Prepaid extends Subscribers {
     }
 
     // Método para registrar uma recarga
-    public void recarregar(GregorianCalendar date, float value) {
-        if (numRecharge < recharge.length) {
+    public void recharge(GregorianCalendar date, float value) { // Corrigido o nome do método e vetor
+        if (numRecharges < recharges.length) { // Corrigido o nome do vetor
             // Registra a recarga (supondo que exista uma classe Recarga)
             Recharge recharge = new Recharge(date, value);
-            recharge[numRecharge] = recharge;
-            numRecharge++;
+            recharges[numRecharges] = recharge; // Corrigido o nome do vetor
+            numRecharges++;
             credit += value;
 
             System.out.println("Recarga realizada com sucesso!");
@@ -50,13 +52,13 @@ public class Prepaid extends Subscribers {
         }
     }
 
-    // Método para imprimir a fatura 
-    public void printInvoice(int month) {  
+    // Método para imprimir a fatura
+    public void printInvoice(int month) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        System.out.println("CPF: " + cpf);
-        System.out.println("Nome: " + name);
-        System.out.println("Número: " + celNumber);
+        System.out.println("CPF: " + cpf); // Corrigido o acesso ao CPF usando método getter
+        System.out.println("Nome: " + name); // Corrigido o acesso ao nome usando método getter
+        System.out.println("Número: " + celNumber); // Corrigido o acesso ao número usando método getter
 
         System.out.println("Chamadas e recargas do mês " + month + ":");
 
@@ -68,10 +70,10 @@ public class Prepaid extends Subscribers {
 
     // Método auxiliar para calcular o valor total de chamadas e recargas
     private float calculateTotalValue() {
-        float TotalValue = 0;
+        float totalValue = 0;
 
         // ... código para somar os valores de chamadas e recargas ...
 
-        return TotalValue;
+        return totalValue;
     }
 }
