@@ -18,7 +18,16 @@ public class Subscribers {
    }
 
    public Long getCpf() {
+
       return cpf;
+   }
+
+   public String getName(){
+      return name;
+   }
+
+   public int getCelNumber(){
+      return celNumber;
    }
 
    @Override
