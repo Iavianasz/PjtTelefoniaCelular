@@ -24,7 +24,7 @@ public class Postpaid extends Subscribers{
 
     public void makeCall(GregorianCalendar date, int duration) {
         if (this.calls.length == this.numOfCalls) {
-            System.out.println("Não é possível realizar uma chamada.");
+            System.out.println("Não é viável efetuar uma chamada.");
         } else {
             for (int i = 0; i <= numOfCalls; i++) {
                 if (this.calls[i] == null) {
@@ -32,7 +32,7 @@ public class Postpaid extends Subscribers{
                 }
             }
             this.numOfCalls++;
-            System.out.println("Chamada concluída com sucesso.");
+            System.out.println("A chamada foi concluída com êxito.");
         }
     }
 
@@ -41,11 +41,11 @@ public class Postpaid extends Subscribers{
         float total = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        System.out.println("Dados do assinante: " + this.toString());
+        System.out.println("Irformações do assinante: " + this.toString());
         System.out.println("Valor da assinatura: " + this.subscription);
 
         if (this.numOfCalls <= 0) {
-            System.out.println("Não houveram chamadas");
+            System.out.println("Não ocorreram chamadas.");
         } else {
             System.out.println("Dados da chamada:");
             for (int i = 0; i < this.numOfCalls; i++) {
@@ -57,7 +57,7 @@ public class Postpaid extends Subscribers{
                 }
             }
 
-            System.out.println("\nValor total das chamadas: R$" + total);
+            System.out.println("\nValor total das chamadas: " + total);
 
             total += this.subscription;
             System.out.println("\nValor total da fatura no mês de " + getMonth(month) + ": R$" + total);

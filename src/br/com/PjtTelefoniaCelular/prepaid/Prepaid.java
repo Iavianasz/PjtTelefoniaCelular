@@ -28,12 +28,12 @@ public class Prepaid extends Subscribers {
         float costCall = 1.45f * duration;
 
         if (this.numOfCalls >= this.calls.length){
-            System.out.println("Não há espaço para novas chamadas.");
+            System.out.println("Não existem espaços para novas chamadas.");
             return 0f;
         }
 
         if (costCall > this.credit) {
-            System.out.println("Saldo insuficiente para realizar a chamada chamada.");
+            System.out.println("Saldo insuficiente para efetuar a chamada.");
             System.out.println("Recarregue seu pré-pago.");
             return 0f;
         }
@@ -43,7 +43,7 @@ public class Prepaid extends Subscribers {
                 Call call = new Call(date, duration);
                 this.calls[i] = call;
                 this.credit -= costCall;
-                System.out.println("Chamada feita com sucesso");
+                System.out.println("Chamada realizada com sucesso");
             }
         }
         this.numOfCalls++;
@@ -53,7 +53,7 @@ public class Prepaid extends Subscribers {
     // Método para registrar uma recarga
     public void recharge(GregorianCalendar date, float value) {
         if (numRecharges >= this.recharges.length) {
-            System.out.println("Espaço insuficiente para recargas novas");
+            System.out.println("Não há espaço suficiente para novas recargas.");
         }
         else {
 
@@ -78,7 +78,7 @@ public class Prepaid extends Subscribers {
         float rechargesTotalValue = 0;
         float callsTotalValue = 0;
 
-        System.out.println("DADOS DO ASSINANTE: " + this.toString());
+        System.out.println("Informações do Assinante: " + this.toString());
         if(this.numOfCalls <= 0){
             System.out.println("Não houveram chamadas");
         } else {
@@ -97,7 +97,7 @@ public class Prepaid extends Subscribers {
         if(this.numRecharges <= 0){
             System.out.println("Não houveram recargas");
         } else {
-            System.out.println("\n========== DADOS RECARGA ==========");
+            System.out.println("\nInformações da Recarga");
             for(int k = 0; k <= this.numRecharges; k++){
                 if (this.recharges[k] != null && this.recharges[k].getDate().get(GregorianCalendar.MONTH) == (month - 1)) {
                     System.out.println("\nData da recarga: " + sdf.format(this.recharges[k].getDate().getTime()));
