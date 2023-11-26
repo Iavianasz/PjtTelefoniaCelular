@@ -22,30 +22,55 @@ public class Telephony {
 
 
     public void registerSubscriber() {
-        Scanner scanner = new Scanner(System.in);
+        String name;
+        long cpf;
+        int option, celNumber;
+        Scanner entrada = new Scanner(System.in);
+        // solicitar tipo de assinante
+        do {
+            System.out.println("\nTipos de assinatura");
+            System.out.println("1- Pré-pago \n2- Pós-pago");
+            System.out.print("Opção: ");
+            option = entrada.nextInt();
+        } while (option != 1 && option != 2); // repete até que o usuário insira um valor válido
 
-        System.out.println("Informe o tipo de assinante (1 - Pré-pago, 2 - Pós-pago): ");
-        int typeSubscriber = scanner.nextInt();
-
-        scanner.nextLine(); // Limpar o buffer do teclado
-
-        System.out.println("Informe o nome do assinante: ");
-        String name = scanner.nextLine();
-
-        System.out.println("Informe o CPF do assinante: ");
-        long cpf = scanner.nextLong();
-
-        System.out.println("Informe o número do telefone do assinante: ");
-        int celNumber = scanner.nextInt();
-
-        if (typeSubscriber == 1) {
-            registerPrePaid(name, cpf, celNumber);
-        } else if (typeSubscriber == 2) {
-            registerPostPaid(name, cpf, celNumber);
+        // conferir se é possível cadastrar o tipo de assinante solicitado
+        if (option == 1 && numPrePaids >= prePaids.length) {
+            System.out.println("Não há mais espaço para cadastro de assinantes pré pagos!"); // exibir mensagem caso não seja
+            // tenha mais espaço no vetor
+        } else if (option == 2 && numPostPaids >= postPaids.length) {
+            System.out.println("Não há mais espaço para cadastro de assinantes pós pagos!");
         } else {
-            System.out.println("Opção inválida.");
+            // solicitar os dados do assinante, caso seja possível cadastrar
+            System.out.print("\nNome do assinante: ");
+            name = entrada.next();
+            System.out.print("CPF do assinante: ");
+            cpf = entrada.nextLong();
+            System.out.print("Número de telefone do assinante: ");
+            celNumber = entrada.nextInt();
+
+            if (option == 1) { // se opcao == prePago...
+                // armazenar um objeto do tipo apropriado no vetor correspondente
+                prePaids[numPrePaids] = new Prepaid(cpf, name, celNumber);
+
+                // incrementar o número de assinantes cadastrados deste tipo
+                this.numPrePaids++;
+
+                System.out.println("Cadastro realizado.\n");
+            } else {
+                float subscription;
+                System.out.print("Valor da assinatura: ");
+                subscription = entrada.nextFloat();
+
+                // armazenar um objeto do tipo apropriado no vetor correspondente
+                postPaids[numPostPaids] = new Postpaid(cpf, name, celNumber, subscription);
+
+                // incrementar o número de assinantes cadastrados deste tipo
+                this.numPostPaids++;
+
+                System.out.println("Cadastro realizado.\n");
+            }
         }
-        scanner.close();
     }
 
 
@@ -78,7 +103,7 @@ public class Telephony {
 
 
         // Criar e adicionar o assinante pós-pago ao vetor
-        Postpaid postPaid = new Postpaid(cpf, name, celNumber);
+        Postpaid postPaid = new Postpaid(cpf, name, celNumber, celNumber);
         addPostPaid(postPaid);
         System.out.println("Assinante pós-pago cadastrado com sucesso.");
     }
@@ -118,50 +143,9 @@ public class Telephony {
         return null; // Retorna null se não encontrar o assinante pós-pago com o CPF fornecido
     }
 
-    public void imprimirFaturas() {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Informe o mês desejado (1 a 12): ");
-        int month = scanner.nextInt();
 
-        System.out.println("Faturas do mês " + month + " para assinantes Pré-Pagos:");
 
-        for (int i = 0; i < numPrePaids; i++) {
-            System.out.println("Dados do assinante:");
-            System.out.println("CPF: " + prePaids[i].getCpf());
-            System.out.println("Nome: " + prePaids[i].getName());
-            System.out.println("Número: " + prePaids[i].getCelNumber());
-
-            prePaids[i].printInvoice(month);
-
-            System.out.println(); // Adiciona uma linha em branco entre as faturas
-        }
-
-        System.out.println("Faturas do mês " + month + " para assinantes Pós-Pagos:");
-
-        for (int i = 0; i < numPostPaids; i++) {
-            System.out.println("Dados do assinante:");
-            System.out.println("CPF: " + postPaids[i].getCpf());
-            System.out.println("Nome: " + postPaids[i].getName());
-            System.out.println("Número: " + postPaids[i].getCelNumber());
-
-            postPaids[i].printInvoice(month);
-
-            System.out.println(); // Adiciona uma linha em branco entre as faturas
-        }
-
-        float valueTotalInvoice = calculateTotalValueInvoice();
-        System.out.println("Valor total da fatura para todos os assinantes pós-pagos: R$ " + valueTotalInvoice);
-        scanner.close();
-    }
-
-    private float calculateTotalValueInvoice() {
-        float total = 0;
-        for (int i = 0; i < numPostPaids; i++) {
-            total += postPaids[i].calculateTotalValueInvoice();
-        }
-        return total;
-    }
 
     public void doRecharge() {
         Scanner scanner = new Scanner(System.in);

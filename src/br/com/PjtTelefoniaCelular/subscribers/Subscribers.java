@@ -2,18 +2,17 @@ package br.com.PjtTelefoniaCelular.subscribers;
 import br.com.PjtTelefoniaCelular.call.Call;
 
 public class Subscribers {
-   protected long cpf;
-   protected String name;
-   protected int celNumber;
-   private int numOfCalls;
+   private long cpf;
+   private String name;
+   private int celNumber;
+   protected int numOfCalls;
+   protected Call[] calls;
 
-   private Call[] calls;
-
-   public Subscribers(long cpf, String name, int celNumber, int numOfCalls) {
+   public Subscribers(long cpf, String name, int celNumber) {
       this.cpf = cpf;
       this.name = name;
       this.celNumber = celNumber;
-      this.calls = new Call[numOfCalls];
+      this.calls = new Call[10];
       this.numOfCalls = 0;
    }
 

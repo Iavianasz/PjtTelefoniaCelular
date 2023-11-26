@@ -7,56 +7,86 @@ import java.util.GregorianCalendar;
 
 public class Postpaid extends Subscribers{
     private float subscription;
-    private Call[] calls;
-    private int numCalls;
+
 
     // Construtor
-    public Postpaid(long cpf, String name, int celNumber) {
-        super(cpf, name, celNumber, celNumber);
+    public Postpaid(long cpf, String name, int celNumber, float subscription) {
+        super(cpf, name, celNumber);
         this.subscription = subscription;
-        this.calls = new Call[100]; // Tamanho arbitrário para o vetor de chamadas
-        this.numCalls = 0;
+    }
+    public float getSubscription() {
+        return subscription;
     }
 
-    // Método para registrar uma chamada
+    public void setSubscription(float subscription) {
+        this.subscription = subscription;
+    }
+
     public void makeCall(GregorianCalendar date, int duration) {
-        float costCall = 1.04f * duration;
-
-        if (numCalls < calls.length) {
-            // Registra a chamada (supondo que exista uma classe Chamada)
-            Call call = new Call(date, duration);
-            calls[numCalls] = call;
-            numCalls++;
-
-            System.out.println("Chamada realizada com sucesso!");
+        if (this.calls.length == this.numOfCalls) {
+            System.out.println("Não é possível realizar uma chamada.");
         } else {
-            System.out.println("Limite de chamadas atingido. Não foi possível realizar a chamada.");
+            for (int i = 0; i <= numOfCalls; i++) {
+                if (this.calls[i] == null) {
+                    this.calls[i] = new Call(date, duration);
+                }
+            }
+            this.numOfCalls++;
+            System.out.println("Chamada concluída com sucesso.");
         }
     }
 
-    // Método para imprimir a fatura
     public void printInvoice(int month) {
+
+        float total = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        System.out.println("Dados do assinante:");
-        // ... código para imprimir dados do assinante ...
+        System.out.println("Dados do assinante: " + this.toString());
+        System.out.println("Valor da assinatura: " + this.subscription);
 
-        System.out.println("Chamadas do mês " + month + ":");
+        if (this.numOfCalls <= 0) {
+            System.out.println("Não houveram chamadas");
+        } else {
+            System.out.println("Dados da chamada:");
+            for (int i = 0; i < this.numOfCalls; i++) {
+                if (this.calls[i] != null && this.calls[i].getDate().get(GregorianCalendar.MONTH) == month - 1) {
+                    System.out.println("Data da chamada: " + sdf.format(this.calls[i].getDate().getTime()));
+                    System.out.println("Duração: " + this.calls[i].getDuration() + " minutos;");
+                    System.out.println("Custo: R$" + this.calls[i].getDuration() * 1.45);
+                    total += this.calls[i].getDuration() * 1.45;
+                }
+            }
 
-        // ... código para iterar sobre chamadas do mês e imprimir os detalhes ...
+            System.out.println("\nValor total das chamadas: R$" + total);
 
-        float valueTotalInvoice = calculateTotalValueInvoice();
-        System.out.println("Valor total da fatura: R$ " + (subscription + valueTotalInvoice));
-    }
-
-    // Método auxiliar para calcular o valor total das chamadas
-    public float calculateTotalValueInvoice() {
-        float valueTotalInvoice = 0;
-
-        for (int i = 0; i < numCalls; i++) {
-            valueTotalInvoice += calls[i].getDuration() * 1.04f;
+            total += this.subscription;
+            System.out.println("\nValor total da fatura no mês de " + getMonth(month) + ": R$" + total);
         }
-
-        return valueTotalInvoice;
     }
+
+    public String getMonth(int option){
+        switch(option) {
+            case 1: return "Janeiro";
+            case 2: return "Fevereiro";
+            case 3: return "Março";
+            case 4: return "Abril";
+            case 5: return "Maio";
+            case 6: return "Junho";
+            case 7: return "Julho";
+            case 8: return "Agosto";
+            case 9: return "Setembro";
+            case 10: return "Outubro";
+            case 11: return "Novembro";
+            case 12: return "Dezembro";
+            default: return "Mês inválido";
+        }
+    }
+
+
+
+
+
+
+
+
 }
