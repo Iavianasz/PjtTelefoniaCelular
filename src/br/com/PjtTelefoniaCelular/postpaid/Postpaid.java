@@ -1,19 +1,17 @@
 package br.com.PjtTelefoniaCelular.postpaid;
 import br.com.PjtTelefoniaCelular.call.Call;
-import br.com.PjtTelefoniaCelular.subscribers.Subscribers;
 
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
-public class Postpaid extends Subscribers {
+public class Postpaid {
     private float subscription;
     private Call[] calls;
     private int numCalls;
 
     // Construtor
-    public Postpaid(long cpf, String name, int celNumber,float subscription) {
-        super(cpf, name, celNumber, celNumber);
+    public Postpaid(float subscription) {
         this.subscription = subscription;
         this.calls = new Call[100]; // Tamanho arbitrário para o vetor de chamadas
         this.numCalls = 0;
@@ -51,7 +49,7 @@ public class Postpaid extends Subscribers {
     }
 
     // Método auxiliar para calcular o valor total das chamadas
-    public float calculateTotalValueInvoice() {
+    private float calculateTotalValueInvoice() {
         float valueTotalInvoice = 0;
 
         for (int i = 0; i < numCalls; i++) {
