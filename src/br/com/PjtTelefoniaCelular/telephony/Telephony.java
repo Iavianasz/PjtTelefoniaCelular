@@ -13,15 +13,15 @@ public class Telephony {
     private int numPostPaids;
 
 
-    public Telephony(int maxPrePaids, int maxPostPaids) {
-        prePaids = new Prepaid[maxPrePaids];
+    public Telephony() {
+        prePaids = new Prepaid[10];
         numPrePaids = 0;
-        postPaids = new Postpaid[maxPostPaids];
+        postPaids = new Postpaid[10];
         numPostPaids = 0;
     }
 
 
-    public void cadastrarAssinante() {
+    public void registerSubscriber() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Informe o tipo de assinante (1 - Pré-pago, 2 - Pós-pago): ");
@@ -45,6 +45,7 @@ public class Telephony {
         } else {
             System.out.println("Opção inválida.");
         }
+        scanner.close();
     }
 
 
@@ -77,7 +78,7 @@ public class Telephony {
 
 
         // Criar e adicionar o assinante pós-pago ao vetor
-        Postpaid postPaid = new Postpaid(cpf, name, celNumber, celNumber);
+        Postpaid postPaid = new Postpaid(cpf, name, celNumber);
         addPostPaid(postPaid);
         System.out.println("Assinante pós-pago cadastrado com sucesso.");
     }
@@ -108,7 +109,7 @@ public class Telephony {
         return null; // Retorna null se não encontrar o assinante pré-pago com o CPF fornecido
     }
 
-    public Postpaid localizarPosPago(long cpf) {
+    public Postpaid locatePosPaid(long cpf) {
         for (int i = 0; i < numPostPaids; i++) {
             if (postPaids[i].getCpf() == cpf) {
                 return postPaids[i];
@@ -151,6 +152,7 @@ public class Telephony {
 
         float valueTotalInvoice = calculateTotalValueInvoice();
         System.out.println("Valor total da fatura para todos os assinantes pós-pagos: R$ " + valueTotalInvoice);
+        scanner.close();
     }
 
     private float calculateTotalValueInvoice() {
@@ -185,6 +187,69 @@ public class Telephony {
         } else {
             System.out.println("Assinante não encontrado. Verifique o CPF.");
         }
+        scanner.close();
+    }
+
+    public void makeCall() {
+        Scanner scanner = new Scanner(System.in);
+
+        // Solicitar o tipo do assinante e CPF
+        System.out.println("Digite o tipo do assinante (PrePago ou PosPago): ");
+        String typeSubscriber = scanner.next();
+        System.out.println("Digite o CPF do assinante: ");
+        long cpf = scanner.nextLong();
+
+        int duration;
+        String data;
+
+        // Localizar o assinante
+        if (typeSubscriber.equalsIgnoreCase("PrePago")) {
+            Prepaid subscriberPrepaid = locatePrePaid(cpf);
+            if (subscriberPrepaid != null) {
+                // Assinante PrePago localizado, solicitar a duração e a data da chamada
+                System.out.println("Digite a duração da chamada em minutos: ");
+                duration = scanner.nextInt();
+                System.out.println("Digite a data da chamada (formato dd/MM/yyyy): ");
+                data = scanner.next();
+
+                // Registrar a chamada para o assinante PrePago
+                subscriberPrepaid.makeCall(parseData(data), duration);
+            } else {
+                System.out.println("Assinante PrePago não encontrado.");
+            }
+        } else if (typeSubscriber.equalsIgnoreCase("PosPago")) {
+            Postpaid subscriberPostpaid = locatePosPaid(cpf);
+            if (subscriberPostpaid != null) {
+                // Assinante PosPago localizado, solicitar a duração e a data da chamada
+                System.out.println("Digite a duração da chamada em minutos: ");
+                duration = scanner.nextInt();
+                System.out.println("Digite a data da chamada (formato dd/MM/yyyy): ");
+                data = scanner.next();
+
+                // Registrar a chamada para o assinante PosPago
+                subscriberPostpaid.makeCall(parseData(data), duration);
+            } else {
+                System.out.println("Assinante PosPago não encontrado.");
+            }
+        } else {
+            System.out.println("Tipo de assinante inválido.");
+        }
+
+        scanner.close();
+    }
+
+    // Método para converter a string de data para um objeto GregorianCalendar (você precisa implementar este método)
+    private GregorianCalendar parseData(String data) {
+        return null;
+    }
+
+
+    public static void main(String[] args) {
+        
+        Telephony telephony = new Telephony(); // Substitua os argumentos pelos valores desejados
+
+        telephony.registerSubscriber();
+
     }
 //teste1
 
